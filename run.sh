@@ -61,8 +61,11 @@ function Update() {
 }
 
 function Shell() {
-    clear
-    exit 0
+    if whiptail --title "$NAME Masternode" --yesno "Are you sure you would like to drop to bash?\n\nThis is only for advanced users. Proceed at your own risk!" 10 70; then
+        clear
+        exit 0
+    else
+        return
 }
 
 function Menu() {
