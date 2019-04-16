@@ -1,4 +1,4 @@
-export TITLE="Bulwark Masternode"
+export NAME="Bulwark"
 export URL="https://github.com/bulwark-crypto/Bulwark/releases/download/2.2.0/bulwark-node-2.2.0.0-linux64.tar.gz"
 export CHAINURL="https://chainseeder.masterhash.us/bwkchain.tar.gz"
 export DAEMONCOMMAND="bulwarkd"
