@@ -12,12 +12,12 @@ function Status() {
             TX="$TXHASH:$TXN"
             ADDRESS=$(jq -r .addr <<< "$STATUS")
             MESSAGE=$(jq -r .message <<< "$STATUS")
-            whiptail --title "$TITLE" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nPeer Count: $PEERS\n\nTX: $TX\nAddress: $ADDRESS\nStatus: $MESSAGE" 20 78
+            whiptail --title "$NAME Masternode" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nPeer Count: $PEERS\n\nTX: $TX\nAddress: $ADDRESS\nStatus: $MESSAGE" 20 78
         else
-            whiptail --title "$TITLE" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nPeer Count: $PEERS\n\nFailed retriving masternode status.\n$STATUS" 20 78
+            whiptail --title "$NAME Masternode" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nPeer Count: $PEERS\n\nFailed retriving masternode status.\n$STATUS" 20 78
         fi
     else
-        whiptail --title "$TITLE" --msgbox "Failed getting info.\n$INFO" 20 78
+        whiptail --title "$NAME Masternode" --msgbox "Failed getting info.\n$INFO" 20 78
     fi
 }
 
@@ -27,10 +27,11 @@ function Edit() {
 
 function Logs() {
     LOGS=$(tail -50 ~/$COINDIR/debug.log)
-    whiptail --title "$TITLE" --msgbox "$LOGS" 50 150
+    whiptail --title "$NAME Masternode" --msgbox "$LOGS" 50 150
 }
 
 function Restart() {
+    clear
     echo "Restarting..."
     sudo service $DAEMONCOMMAND restart
     until $CLICOMMAND getinfo >/dev/null; do
@@ -39,6 +40,8 @@ function Restart() {
 }
 
 function Refresh() {
+    clear
+    echo "Refreshing node..."
     sudo service $DAEMONCOMMAND stop
     cd ~/$COINDIR
     rm -rf $FILES
@@ -50,17 +53,24 @@ function Refresh() {
 }
 
 function Update() {
+    clear
+    echo "Updating..."
     cd /opt/masternode
     sudo git pull
     exec bash /opt/masternode/run.sh
 }
 
 function Shell() {
-    exit 0
+    if whiptail --title "$NAME Masternode" --yesno "Are you sure you would like to drop to bash?\n\nThis is only for advanced users. Proceed at your own risk!" 10 70; then
+        clear
+        exit 0
+    else
+        return
+    fi
 }
 
 function Menu() {
-    SEL=$(whiptail --nocancel --title "$TITLE" --menu "Choose an option" 16 78 8 \
+    SEL=$(whiptail --nocancel --title "$NAME Masternode" --menu "Choose an option" 16 78 8 \
         "Status" "Display masternode status." \
         "Edit" "Edit daemon configuration." \
         "Logs" "Display logs." \
@@ -92,7 +102,6 @@ export NEWT_COLORS='
 export TERM='xterm-256color'
 
 if [ ! -f /etc/masternode/installed ]; then
-    sudo service $DAEMONCOMMAND stop 
     cd /opt/masternode
     sudo git pull
     bash /opt/masternode/install.sh
