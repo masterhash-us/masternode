@@ -80,6 +80,16 @@ function Menu() {
 
 source /opt/masternode/coins/$(cat /etc/masternode/coin).sh
 
+NEWT_COLORS='
+window=,white
+root=,blue
+border=blue,color8
+title=white,gray
+listbox=brightblue,white
+compactbutton=blue,white
+actsellistbox=white,blue
+'
+
 if [ ! -f /etc/masternode/installed ]; then
     sudo service $DAEMONCOMMAND stop 
     cd /opt/masternode
