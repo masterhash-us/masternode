@@ -1,19 +1,36 @@
 #!/usr/bin/env bash
 
 function Status() {
-    if STATUS=$($CLICOMMAND masternode status 2>&1); then
-        TXHASH=$(jq -r .txhash <<< "$STATUS")
-        TXN=$(jq -r .outputidx <<< "$STATUS")
-        TX="$TXHASH:$TXN"
-        ADDRESS=$(jq -r .addr <<< "$STATUS")
-        MESSAGE=$(jq -r .message <<< "$STATUS")
-        whiptail --title "$TITLE" --msgbox "TX: $TX\nAddress: $ADDRESS\nStatus: $MESSAGE" 10 78
+    if INFO=$($CLICOMMAND getinfo 2>&1); then
+        VERSION=$(jq -r .version <<< "$INFO")
+        PROTOCOL=$(jq -r .protocolversion <<< "$INFO")
+        BLOCKHEIGHT=$(jq -r .blocks <<< "$INFO")
+        if STATUS=$($CLICOMMAND masternode status 2>&1); then
+            TXHASH=$(jq -r .txhash <<< "$STATUS")
+            TXN=$(jq -r .outputidx <<< "$STATUS")
+            TX="$TXHASH:$TXN"
+            ADDRESS=$(jq -r .addr <<< "$STATUS")
+            MESSAGE=$(jq -r .message <<< "$STATUS")
+            whiptail --title "$TITLE" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nTX: $TX\nAddress: $ADDRESS\nStatus: $MESSAGE" 20 78
+        else
+            whiptail --title "$TITLE" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nFailed retriving masternode status.\n$STATUS" 20 78
+        fi
     else
-        whiptail --title "$TITLE" --msgbox "Failed retriving masternode status.\n$STATUS" 10 78
+        whiptail --title "$TITLE" --msgbox "Failed getting info.\n$INFO" 20 78
     fi
 }
 
+function Edit() {
+    nano ~/$COINDIR/$CONFFILE
+}
+
+function Logs() {
+    LOGS=$(tail -50 ~/$COINDIR/debug.log)
+    whiptail --title "$TITLE" --msgbox "$LOGS" 50 150
+}
+
 function Restart() {
+    echo "Restarting..."
     sudo service $DAEMONCOMMAND restart
     until $CLICOMMAND getinfo >/dev/null; do
         sleep 1;
@@ -33,7 +50,7 @@ function Refresh() {
 function Update() {
     cd /opt/masternode
     sudo git pull
-    exec /opt/masternode/run.sh
+    exec bash /opt/masternode/run.sh
 }
 
 function Shell() {
@@ -43,6 +60,8 @@ function Shell() {
 function Menu() {
     SEL=$(whiptail --nocancel --title "$CLICOMMAND" --menu "Choose an option" 16 78 8 \
         "Status" "Display masternode status." \
+        "Edit" "Edit daemon configuration." \
+        "Logs" "Display logs." \
         "Restart" "Restart masternode." \
         "Refresh" "Wipe and reinstall blockchain." \
         "Update" "Update running masternode." \
@@ -50,6 +69,8 @@ function Menu() {
         3>&1 1>&2 2>&3)
     case $SEL in
         "Status") Status;;
+        "Edit") Edit;;
+        "Logs") Logs;;
         "Restart") Restart;;
         "Refresh") Refresh;;
         "Update") Update;;
