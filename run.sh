@@ -56,6 +56,7 @@ function Update() {
 }
 
 function Shell() {
+    clear
     exit 0
 }
 
