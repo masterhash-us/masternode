@@ -5,15 +5,16 @@ function Status() {
         VERSION=$(jq -r .version <<< "$INFO")
         PROTOCOL=$(jq -r .protocolversion <<< "$INFO")
         BLOCKHEIGHT=$(jq -r .blocks <<< "$INFO")
+        PEERS=$(jq -r .connections <<< "$INFO")
         if STATUS=$($CLICOMMAND masternode status 2>&1); then
             TXHASH=$(jq -r .txhash <<< "$STATUS")
             TXN=$(jq -r .outputidx <<< "$STATUS")
             TX="$TXHASH:$TXN"
             ADDRESS=$(jq -r .addr <<< "$STATUS")
             MESSAGE=$(jq -r .message <<< "$STATUS")
-            whiptail --title "$TITLE" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nTX: $TX\nAddress: $ADDRESS\nStatus: $MESSAGE" 20 78
+            whiptail --title "$TITLE" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nPeer Count: $PEERS\nTX: $TX\nAddress: $ADDRESS\nStatus: $MESSAGE" 20 78
         else
-            whiptail --title "$TITLE" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nFailed retriving masternode status.\n$STATUS" 20 78
+            whiptail --title "$TITLE" --msgbox "Version: $VERSION\nProtocol Version: $PROTOCOL\nBlock Height: $BLOCKHEIGHT\nPeer Count: $PEERS\nFailed retriving masternode status.\n$STATUS" 20 78
         fi
     else
         whiptail --title "$TITLE" --msgbox "Failed getting info.\n$INFO" 20 78

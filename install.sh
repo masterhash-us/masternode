@@ -17,6 +17,9 @@ echo "⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀�
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉"
 
 cd /tmp
+
+sudo apt-get install jq
+
 echo "Downloading and extracting."
 curl -L $URL | tar xz
 sudo mv $DAEMONCOMMAND $CLICOMMAND /usr/local/bin
@@ -56,7 +59,8 @@ done
 
 echo "Writing config."
 
-echo "masternode=1" > $CONFFILE
+echo "daemon=1" > $CONFFILE
+echo "masternode=1" >> $CONFFILE
 echo "masternodeprivkey=$KEY" >> $CONFFILE
 echo "rpcpassword=${RPCPASSWORD}" >> $CONFFILE
 echo "rpcuser=${RPCUSER}" >> $CONFFILE
