@@ -1,4 +1,4 @@
-export NAME="Giant Coin Masternode"
+export NAME="GiantPay"
 export URL="https://chainseeder.masterhash.us/giant-1.2.2.1-linux64.tar.gz"
 export CHAINURL="https://chainseeder.masterhash.us/giantchain.tar.gz"
 export DAEMONCOMMAND="giantd"

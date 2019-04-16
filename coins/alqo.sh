@@ -1,4 +1,4 @@
-export NAME="Alqo Masternode"
+export NAME="Alqo"
 export URL="https://chainseeder.masterhash.us/alqo-4.2.1.tar.gz"
 export CHAINURL="https://chainseeder.masterhash.us/alqochain.tar.gz"
 export DAEMONCOMMAND="alqod"
