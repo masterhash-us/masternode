@@ -1,0 +1,8 @@
+export NAME="Giant Coin Masternode"
+export URL="https://chainseeder.masterhash.us/giant-1.2.2.1-linux64.tar.gz"
+export CHAINURL="https://chainseeder.masterhash.us/giantchain.tar.gz"
+export DAEMONCOMMAND="giantd"
+export CLICOMMAND="giant-cli"
+export FILES="blocks database chainstate peers.dat"
+export COINDIR=".giant"
+export CONFFILE="giant.conf"

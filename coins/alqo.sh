@@ -1,0 +1,8 @@
+export NAME="Alqo Masternode"
+export URL="https://chainseeder.masterhash.us/alqo-4.2.1.tar.gz"
+export CHAINURL="https://chainseeder.masterhash.us/alqochain.tar.gz"
+export DAEMONCOMMAND="alqod"
+export CLICOMMAND="alqo-cli"
+export FILES="blocks database chainstate peers.dat"
+export COINDIR=".alqo"
+export CONFFILE="alqo.conf"
