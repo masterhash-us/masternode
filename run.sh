@@ -66,6 +66,7 @@ function Shell() {
         exit 0
     else
         return
+    fi
 }
 
 function Menu() {
