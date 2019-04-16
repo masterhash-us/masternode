@@ -45,8 +45,4 @@ echo "server=1" >> ~/$COINDIR/$CONFFILE
 echo "Starting service."
 sudo systemctl start $DAEMONCOMMAND
 
-until $CLICOMMAND getinfo >/dev/null; do
-  sleep 1;
-done
-
-touch /etc/masternode/installed
+sudo touch /etc/masternode/installed

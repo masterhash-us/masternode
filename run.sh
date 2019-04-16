@@ -22,6 +22,7 @@ function Restart() {
 
 function Refresh() {
     sudo service $DAEMONCOMMAND stop
+    cd ~/$COINDIR
     rm -rf $FILES
     sudo service $DAEMONCOMMAND start
     until $CLICOMMAND getinfo >/dev/null; do
@@ -56,7 +57,7 @@ function Menu() {
     esac
 }
 
-source /opt/masternode/$(cat /etc/masternode/coin).sh
+source /opt/masternode/coins/$(cat /etc/masternode/coin).sh
 
 if [ ! -f /etc/masternode/installed ]; then
     sudo service $DAEMONCOMMAND stop 
