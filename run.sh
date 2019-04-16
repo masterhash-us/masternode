@@ -41,6 +41,7 @@ function Refresh() {
     sudo service $DAEMONCOMMAND stop
     cd ~/$COINDIR
     rm -rf $FILES
+    curl -L $CHAINURL | tar xz
     sudo service $DAEMONCOMMAND start
     until $CLICOMMAND getinfo >/dev/null; do
         sleep 1;
@@ -58,7 +59,7 @@ function Shell() {
 }
 
 function Menu() {
-    SEL=$(whiptail --nocancel --title "$CLICOMMAND" --menu "Choose an option" 16 78 8 \
+    SEL=$(whiptail --nocancel --title "$TITLE" --menu "Choose an option" 16 78 8 \
         "Status" "Display masternode status." \
         "Edit" "Edit daemon configuration." \
         "Logs" "Display logs." \
@@ -81,14 +82,13 @@ function Menu() {
 source /opt/masternode/coins/$(cat /etc/masternode/coin).sh
 
 export NEWT_COLORS='
-    window=,white
-    root=,blue
-    border=blue,color8
-    title=white,gray
-    listbox=brightblue,white
-    compactbutton=blue,white
-    actsellistbox=white,blue
+    root=,color236
+    listbox=color26,
+    title=color26,
+    actsellistbox=white,color26
+    border=blue,
 '
+export TERM='xterm-256color'
 
 if [ ! -f /etc/masternode/installed ]; then
     sudo service $DAEMONCOMMAND stop 

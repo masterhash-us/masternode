@@ -1,7 +1,6 @@
 cd /tmp
 echo "Downloading and extracting."
-curl -Lo coin.tar.gz $URL
-tar -xvf coin.tar.gz
+curl -L $URL | tar xz
 sudo mv $DAEMONCOMMAND $CLICOMMAND /usr/local/bin
 echo "Writing service."
 sudo tee /etc/systemd/system/$DAEMONCOMMAND.service > /dev/null << EOL
@@ -27,6 +26,8 @@ sudo systemctl enable $DAEMONCOMMAND
 echo "Creating coin directory."
 mkdir ~/$COINDIR
 
+cd ~/$COINDIR
+
 RPCUSER=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
 RPCPASSWORD=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
@@ -35,12 +36,17 @@ do
     KEY=$(whiptail --inputbox "Masternode Privkey" 8 78 --title "$TITLE" --nocancel 3>&1 1>&2 2>&3)
 done
 
-echo "masternode=1" > ~/$COINDIR/$CONFFILE
-echo "masternodeprivkey=$KEY" >> ~/$COINDIR/$CONFFILE
-echo "rpcpassword=${RPCPASSWORD}"  >> ~/$COINDIR/$CONFFILE
-echo "rpcuser=${RPCUSER}"  >> ~/$COINDIR/$CONFFILE
-echo "rpcallowip=127.0.0.1" >> ~/$COINDIR/$CONFFILE
-echo "server=1" >> ~/$COINDIR/$CONFFILE
+echo "Writing config."
+
+echo "masternode=1" > $CONFFILE
+echo "masternodeprivkey=$KEY" >> $CONFFILE
+echo "rpcpassword=${RPCPASSWORD}" >> $CONFFILE
+echo "rpcuser=${RPCUSER}" >> $CONFFILE
+echo "rpcallowip=127.0.0.1" >> $CONFFILE
+echo "server=1" >> $CONFFILE
+
+echo "Downloading blockchain."
+curl -L $CHAINURL | tar xz
 
 echo "Starting service."
 sudo systemctl start $DAEMONCOMMAND
