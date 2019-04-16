@@ -31,6 +31,7 @@ function Logs() {
 }
 
 function Restart() {
+    clear
     echo "Restarting..."
     sudo service $DAEMONCOMMAND restart
     until $CLICOMMAND getinfo >/dev/null; do
@@ -39,6 +40,7 @@ function Restart() {
 }
 
 function Refresh() {
+    clear
     sudo service $DAEMONCOMMAND stop
     cd ~/$COINDIR
     rm -rf $FILES
