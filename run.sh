@@ -41,6 +41,7 @@ function Restart() {
 
 function Refresh() {
     clear
+    echo "Refreshing node..."
     sudo service $DAEMONCOMMAND stop
     cd ~/$COINDIR
     rm -rf $FILES
@@ -52,6 +53,8 @@ function Refresh() {
 }
 
 function Update() {
+    clear
+    echo "Updating..."
     cd /opt/masternode
     sudo git pull
     exec bash /opt/masternode/run.sh
