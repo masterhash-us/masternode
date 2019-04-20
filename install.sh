@@ -29,6 +29,7 @@ sudo apt-get -y install jq
 
 echo "Downloading and extracting."
 curl -L $URL | tar xz
+cd ./$ARCHIVEPATH
 sudo mv $DAEMONCOMMAND $CLICOMMAND /usr/local/bin
 echo "Writing service."
 sudo tee /etc/systemd/system/$DAEMONCOMMAND.service > /dev/null << EOL

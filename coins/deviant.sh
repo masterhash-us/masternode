@@ -1,6 +1,7 @@
 export NAME="Deviant"
 export URL="https://github.com/Deviantcoin/Source/releases/download/4.0.0.0/deviant-4.0.0-x86_64-linux-gnu.tar.gz"
 export CHAINURL="https://chainseeder.masterhash.us/deviantchain.tar.gz"
+export ARCHIVEPATH=""
 export DAEMONCOMMAND="deviantd"
 export CLICOMMAND="deviant-cli"
 export FILES="blocks database chainstate peers.dat"

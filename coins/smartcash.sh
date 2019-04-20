@@ -1,6 +1,7 @@
 export NAME="SmartCash"
 export URL="https://github.com/SmartCash/Core-Smart/releases/download/v1.2.8/smartcash-1.2.8-x86_64-linux-gnu.tar.gz"
 export CHAINURL="https://chainseeder.masterhash.us/smartcashchain.tar.gz"
+export ARCHIVEPATH=""
 export DAEMONCOMMAND="smartcashd"
 export CLICOMMAND="smartcash-cli"
 export FILES="blocks database chainstate peers.dat"

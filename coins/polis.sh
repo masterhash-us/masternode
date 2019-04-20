@@ -1,6 +1,7 @@
 export NAME="Polis"
 export URL="https://github.com/polispay/polis/releases/download/v1.4.11/poliscore-1.4.11-x86_64-linux-gnu.tar.gz"
 export CHAINURL="https://chainseeder.masterhash.us/polischain.tar.gz"
+export ARCHIVEPATH=""
 export DAEMONCOMMAND="polisd"
 export CLICOMMAND="polis-cli"
 export FILES="blocks database chainstate peers.dat"
