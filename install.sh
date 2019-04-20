@@ -25,7 +25,7 @@ read -rsp 'Please any key to continue, or close this terminal to terminate insta
 
 cd /tmp
 
-sudo apt-get install jq
+sudo apt-get -y install jq
 
 echo "Downloading and extracting."
 curl -L $URL | tar xz
