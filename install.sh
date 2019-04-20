@@ -8,6 +8,9 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 echo 'vm.swappiness=10'  | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 
+sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+sudo /etc/init.d/ssh restart
+
 clear
 cat << "EOF"
  __  __           _            _    _           _     
