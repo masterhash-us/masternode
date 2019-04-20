@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+clear
 cat << "EOF"
  __  __           _            _    _           _     
 |  \/  |         | |          | |  | |         | |    

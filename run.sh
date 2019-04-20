@@ -104,7 +104,7 @@ export TERM='xterm-256color'
 if [ ! -f /etc/masternode/installed ]; then
     cd /opt/masternode
     sudo git pull
-    bash /opt/masternode/install.sh
+    source /opt/masternode/install.sh
 fi
 
 while true; do Menu; done
