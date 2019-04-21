@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source /opt/masternode/coins/$(cat /etc/masternode/coin).sh
+
 clear
 cat << "EOF"
  __  __           _            _    _           _     
@@ -80,6 +82,7 @@ echo 'vm.swappiness=10'  | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 
 echo "Starting service."
+sudo systemctl reset-failed $DAEMONCOMMAND
 sudo systemctl start $DAEMONCOMMAND
 
 sudo touch /etc/masternode/installed

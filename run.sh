@@ -33,6 +33,7 @@ function Logs() {
 function Restart() {
     clear
     echo "Restarting..."
+    sudo systemctl reset-failed $DAEMONCOMMAND
     sudo service $DAEMONCOMMAND restart
     until $CLICOMMAND getinfo >/dev/null; do
         sleep 1;
@@ -46,6 +47,7 @@ function Refresh() {
     cd ~/$COINDIR
     rm -rf $FILES
     curl -L $CHAINURL | tar xz
+    sudo systemctl reset-failed $DAEMONCOMMAND
     sudo service $DAEMONCOMMAND start
     until $CLICOMMAND getinfo >/dev/null; do
         sleep 1;
