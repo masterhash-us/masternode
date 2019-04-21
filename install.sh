@@ -68,8 +68,8 @@ done
 echo "Writing config."
 
 echo "daemon=1" > $CONFFILE
-echo "masternode=1" >> $CONFFILE
-echo "masternodeprivkey=$KEY" >> $CONFFILE
+echo "$NODENAME=1" >> $CONFFILE
+echo "${NODENAME}privkey=$KEY" >> $CONFFILE
 echo "rpcpassword=${RPCPASSWORD}" >> $CONFFILE
 echo "rpcuser=${RPCUSER}" >> $CONFFILE
 echo "rpcallowip=127.0.0.1" >> $CONFFILE
